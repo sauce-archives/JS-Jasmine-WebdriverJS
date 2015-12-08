@@ -1,0 +1,19 @@
+{
+  "name": "js-jasmine-selenium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "exampleScript.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine-node": "^1.14.5",
+    "saucelabs": "^1.0.1",
+    "grunt": "0.4.5",
+    "grunt-parallel": "^0.4.1",
+    "grunt-shell": "^1.1.2",
+    "selenium-webdriver": "2.48.0"
+  }
+}
