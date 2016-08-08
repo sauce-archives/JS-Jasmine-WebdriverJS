@@ -1,16 +1,11 @@
-var config = require('config');
 'use strict';
+var config = require('config');
+
 var test = require('selenium-webdriver/testing');
 var assert = require('assert');
 var BaseTest = require('./BaseTest');
 var sampleSpec = require('../PageObjects/sampleSpec')
 
-// var webdriver = require('selenium-webdriver'),
-// 	By = webdriver.By,
-// 	until = webdriver.until;
-// var test = require('selenium-webdriver/testing');
-// var DriverFactory = require('../lib/DriverFactory'),
-// 	driverFactory;
 global.testTimeout = 30000;
 
 jasmine.getEnv().defaultTimeoutInterval = 100000;

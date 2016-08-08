@@ -1,5 +1,13 @@
 'use strict';
 // var test = require('selenium-webdriver/testing');
+var SauceLabs = require("saucelabs");
+var username = process.env.SAUCE_USERNAME;
+var accessKey = process.env.SAUCE_ACCESS_KEY;
+var   saucelabs = new SauceLabs({
+    username: username,
+    password: accessKey
+});
+
 var DriverFactory = require('../lib/DriverFactory'),
     driverFactory;
 global.testTimeout = 30000;
@@ -33,6 +41,5 @@ afterEach(function () {
     saucelabs.updateJob(driver.sessionID, {
         passed: results === 0
     }, function () {});
-    this.timeout(global.testTimeout);
     driverFactory.quit();
 });

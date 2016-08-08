@@ -1,13 +1,12 @@
 'use strict';
-// var BasePage = require('./BasePage');
+var BasePage = require('./BasePage');
 var assert = require('assert');
 
 var FOCUSABLE_TEXTBOX = {css: '#i_am_a_textbox'};
 var testText = "now I can focus";
 
 function sampleSpec(driver) {
-    call(this, driver);
-    this.visit('/');
+    BasePage.call(this, driver);
     this.isDisplayed(FOCUSABLE_TEXTBOX).then(function(elementDisplayed) {
         assert.equal(elementDisplayed, true, 'Focusable input textbox not loaded');
     });
