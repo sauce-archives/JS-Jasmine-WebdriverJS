@@ -1,4 +1,7 @@
-var webdriver = require('selenium-webdriver');
+var config = require('config');
+var webdriver = require('selenium-webdriver'),
+	By = webdriver.By,
+	until = webdriver.until;
 var SauceLabs = require("saucelabs");
 var username = process.env.SAUCE_USERNAME;
 var accessKey = process.env.SAUCE_ACCESS_KEY;
@@ -18,6 +21,7 @@ describe('basic test', function () {
         server = "http://" + username + ":" + accessKey +
         "@ondemand.saucelabs.com:80/wd/hub";
 
+		//Instantiating the driver
 		driver = new webdriver.Builder().
 		    withCapabilities({
 		        'browserName': browser,
@@ -33,6 +37,9 @@ describe('basic test', function () {
 		driver.getSession().then(function(sessionid) {
 		    driver.sessionID = sessionid.id_;
 		});
+
+		driver.get(config.get("url"));
+
 	});
 
 	afterEach(function () {
@@ -44,11 +51,19 @@ describe('basic test', function () {
 	});
 
 	it('should be on correct page', function (done) {
-		driver.get('https://saucelabs.com/test/guinea-pig');
 		driver.getTitle().then(function(title) {
-			expect(title).toBe('I am a page title - Sauce Labs');
+			expect(title).toBe(config.get("page.title"));
 			done();
 		});
 	});
+
+	it('should have the correct default textbox value', function (done) {
+		driver.findElement(By.css(config.get("locators.textbox.input"))).getAttribute(value).then(function(value) {
+			expect(value).toBe(config.get("expected.page.inputFocusText"));
+			done();
+		});
+	});
+
+
 });
 
