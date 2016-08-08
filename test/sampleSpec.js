@@ -1,6 +1,6 @@
 'use strict';
 var config = require('config');
-
+var webdriver = require('selenium-webdriver');
 var test = require('selenium-webdriver/testing');
 var assert = require('assert');
 var BaseTest = require('./BaseTest');
@@ -12,8 +12,9 @@ jasmine.getEnv().defaultTimeoutInterval = 100000;
 
 describe('basic test', function () {
 	var sample;
-	beforeEach(function() {
+	beforeEach(function(done) {
 		sample = new sampleSpec(global.driver);
+		done();
 	});
 // this.timeout(global.testTimeout);
 	it('should be on correct page', function (done) {
@@ -21,17 +22,16 @@ describe('basic test', function () {
 
 		sample.driver.getTitle().then(function(title) {
 			expect(title).toBe(config.get("expected.title"));
-//			done();
 		});
+		done();
 	});
 
 	it('should have the correct default textbox value', function (done) {
 		sample.driver.get(config.get("url"));
-
-		sample.driver.findElement(By.css(config.get("locators.textbox.input"))).getAttribute(value).then(function(value) {
+		sample.driver.findElement(webdriver.By.css(config.get("locators.textbox.input"))).getAttribute("value").then(function(value) {
 			expect(value).toBe(config.get("expected.page.inputFocusText"));
-//			done();
 		});
+		done();
 	});
 
 

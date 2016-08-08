@@ -9,7 +9,7 @@ module.exports = {
 
   "locators":{
     "textbox": {
-      "input": ""
+      "input": "#i_am_a_textbox"
     }
   }
 }

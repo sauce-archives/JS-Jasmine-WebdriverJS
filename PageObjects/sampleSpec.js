@@ -7,9 +7,6 @@ var testText = "now I can focus";
 
 function sampleSpec(driver) {
     BasePage.call(this, driver);
-    this.isDisplayed(FOCUSABLE_TEXTBOX).then(function(elementDisplayed) {
-        assert.equal(elementDisplayed, true, 'Focusable input textbox not loaded');
-    });
 }
 
 sampleSpec.prototype.constructor = sampleSpec;
