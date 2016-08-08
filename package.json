@@ -14,6 +14,8 @@
     "grunt": "0.4.5",
     "grunt-parallel": "^0.4.1",
     "grunt-shell": "^1.1.2",
-    "selenium-webdriver": "2.48.0"
+    "selenium-webdriver": "2.53.3",
+    "config": "*"
+
   }
 }

@@ -1,0 +1,15 @@
+{
+    "url": "https://saucelabs.com/test/guinea-pig",
+    "expected": {
+        "page": {
+            "title": "I am a page title - Sauce Labs",
+            "inputFocusText": "i has no focus"
+        }
+    },
+
+    "locators":{
+        "textbox": {
+            "input": "#i_am_a_textbox"
+        }
+    }
+}
