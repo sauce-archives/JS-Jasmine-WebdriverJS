@@ -25,6 +25,11 @@ This code is provided on an "AS-IS” basis without warranty of any kind, either
 	```
 	$ npm install
 	```
+4. Export Environment Variable
+    * Export Environment Variable
+    ```
+    $ export NODE_ENV=config
+    ```
 
 ### Running Tests
 

@@ -8,39 +8,30 @@ var   saucelabs = new SauceLabs({
       password: accessKey
     });
 
+var DriverFactory = require('../lib/DriverFactory'),
+	driverFactory;
+global.test_timeout = 30000;
+
 jasmine.getEnv().defaultTimeoutInterval = 100000;
 
 describe('basic test', function () {
 
 	beforeEach(function () {
-		var browser = process.env.BROWSER,
-			version = process.env.VERSION,
-			platform = process.env.PLATFORM,
-			server = "http://" + username + ":" + accessKey +
-				"@ondemand.saucelabs.com:80/wd/hub";
+		driverFactory = new DriverFactory();
+		global.driver = driverFactory.driver;
 
-		driver = new webdriver.Builder().
-		withCapabilities({
-			'browserName': browser,
-			'platform': platform,
-			'version': version,
-			'username': username,
-			'accessKey': accessKey,
-			'name': jasmine.getEnv().currentSpec.description
-		}).
-		usingServer(server).
-		build();
-
-		driver.getSession().then(function(sessionid) {
-			driver.sessionID = sessionid.id_;
-		});
 	});
 
+	function BasePage(driver) {
+		this.driver = driver;
+	}
+
 	afterEach(function () {
-		var results = jasmine.getEnv().currentSpec.results_.failedCount;
-		saucelabs.updateJob(driver.sessionID, {
-			passed: results === 0
-		}, function () {});
+		// var results = jasmine.getEnv().currentSpec.results_.failedCount;
+		// console.log(driver.sessionID);
+		// saucelabs.updateJob(driver.sessionID, {
+		// 	passed: results === 0
+		// }, function () {});
 		driver.quit();
 	});
 
