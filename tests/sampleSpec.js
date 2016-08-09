@@ -27,22 +27,22 @@ describe('basic test', function () {
 	}
 
 	afterEach(function () {
-		// var results = jasmine.getEnv().currentSpec.results_.failedCount;
-		// console.log(driver.sessionID);
-		// saucelabs.updateJob(driver.sessionID, {
-		// 	passed: results === 0
-		// }, function () {});
+		var results = jasmine.getEnv().currentSpec.results_.failedCount;
+//		console.log(driver.sessionID);
+		saucelabs.updateJob(driver.sessionID, {
+			passed: results === 0
+		}, function () {});
 		driver.quit();
 	});
 
-	it('should be on correct page', function (done) {
+	it('should be on correct page - fail', function (done) {
 		driver.get(config.get("url"));
 		driver.getTitle().then(function(title) {
 			expect(title).toBe("title");
 			done();
 		});
 	});
-	it('should be on correct page2', function (done) {
+	it('should be on correct page - pass', function (done) {
 		driver.get(config.get("url"));
 		driver.getTitle().then(function(title) {
 			expect(title).toBe("I am a page title - Sauce Labs");
