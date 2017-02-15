@@ -8,8 +8,10 @@ node('docker') {
       sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
         withEnv(['HOME=$WORKSPACE']) {
           docker.image('node:6.6.0').inside {
-            sh 'npm install'
-            sh 'npm run test'
+            wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+              sh 'npm install'
+              sh 'npm run test'
+            }
           }
         }
       }
