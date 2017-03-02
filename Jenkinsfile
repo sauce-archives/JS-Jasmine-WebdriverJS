@@ -6,7 +6,7 @@ node('docker') {
   stage('Test') {
     sauce('saucelabs') {
       sauceconnect(useGeneratedTunnelIdentifier: true, verboseLogging: true) {
-        withEnv(['HOME=$WORKSPACE']) {
+        withEnv(["HOME=${env.WORKSPACE}"]) {
           docker.image('node:6.6.0').inside {
             sh 'npm install'
             sh 'npm run test'
