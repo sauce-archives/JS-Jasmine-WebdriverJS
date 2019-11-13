@@ -5,47 +5,52 @@ var accessKey = process.env.SAUCE_ACCESS_KEY;
 var   saucelabs = new SauceLabs({
       username: username,
       password: accessKey
-    });
+	});
+var customReporter = require("./helpers");
 
-jasmine.getEnv().defaultTimeoutInterval = 100000;
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 100000;
 
 describe('basic test', function () {
 
-	beforeEach(function () {
+	beforeAll(function () {
+		jasmine.getEnv().addReporter(customReporter)
+	})
+
+	beforeEach(async function () {
 		var browser = process.env.BROWSER,
         version = process.env.VERSION,
         platform = process.env.PLATFORM,
         server = "http://" + username + ":" + accessKey +
         "@ondemand.saucelabs.com:80/wd/hub";
 
-		driver = new webdriver.Builder().
+		driver = await new webdriver.Builder().
 		    withCapabilities({
 		        'browserName': browser,
 		        'platform': platform,
 		        'version': version,
 		        'username': username,
 		        'accessKey': accessKey,
-		        'name': jasmine.getEnv().currentSpec.description
+		        'name': jasmine.currentTest.title
 		    }).
 		    usingServer(server).
 		    build();
 
-		driver.getSession().then(function(sessionid) {
+		await driver.getSession().then(function(sessionid) {
 		    driver.sessionID = sessionid.id_;
 		});
 	});
 
-	afterEach(function () {
-		var results = jasmine.getEnv().currentSpec.results_.failedCount;
-		saucelabs.updateJob(driver.sessionID, {
-      		passed: results === 0
+	afterEach(async function () {
+		var results = jasmine.currentTest.failedExpectations;
+		await saucelabs.updateJob(driver.sessionID, {
+      		passed: results.length === 0
     	}, function () {});
-		driver.quit();
+		await driver.quit();
 	});
 
-	it('should be on correct page', function (done) {
-		driver.get('https://saucelabs.com/test/guinea-pig');
-		driver.getTitle().then(function(title) {
+	it('should be on correct page', async function (done) {
+		await driver.get('https://saucelabs.com/test/guinea-pig');
+		await driver.getTitle().then(function(title) {
 			expect(title).toBe('I am a page title - Sauce Labs');
 			done();
 		});
