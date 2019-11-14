@@ -35,14 +35,12 @@ describe('basic test', function () {
 		    usingServer(server).
 		    build();
 
-		await driver.getSession().then(function(sessionid) {
-		    driver.sessionID = sessionid.id_;
-		});
+		driver.sessionID = await driver.getSession();
 	});
 
 	afterEach(async function () {
 		var results = jasmine.currentTest.failedExpectations;
-		await saucelabs.updateJob(username, driver.sessionID, {
+		await saucelabs.updateJob(username, driver.sessionID.id_, {
       		passed: results.length === 0
     	});
 		await driver.quit();
@@ -50,10 +48,8 @@ describe('basic test', function () {
 
 	it('should be on correct page', async function (done) {
 		await driver.get('https://saucelabs.com/test/guinea-pig');
-		await driver.getTitle().then(function(title) {
-			expect(title).toBe('I am a page title - Sauce Labs');
-			done();
-		});
+		expect(await driver.getTitle()).toBe('I am a page title - Sauce Labs');
+		done();
 	});
 });
 
