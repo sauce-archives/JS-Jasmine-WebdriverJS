@@ -1,5 +1,5 @@
 var webdriver = require('selenium-webdriver');
-var SauceLabs = require("saucelabs");
+var SauceLabs = require("saucelabs").default;
 var username = process.env.SAUCE_USERNAME;
 var accessKey = process.env.SAUCE_ACCESS_KEY;
 var   saucelabs = new SauceLabs({
@@ -42,9 +42,9 @@ describe('basic test', function () {
 
 	afterEach(async function () {
 		var results = jasmine.currentTest.failedExpectations;
-		await saucelabs.updateJob(driver.sessionID, {
+		await saucelabs.updateJob(username, driver.sessionID, {
       		passed: results.length === 0
-    	}, function () {});
+    	});
 		await driver.quit();
 	});
 
