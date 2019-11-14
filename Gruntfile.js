@@ -6,7 +6,7 @@ module.exports = function (grunt) {
       shell: {
         runTests: {
             command: function(platform, browser, version) {
-              return 'PLATFORM='+platform+' BROWSER='+browser+' VERSION='+version+' ./node_modules/.bin/jasmine-node sampleSpec.js'
+              return 'PLATFORM='+platform+' BROWSER='+browser+' VERSION='+version+' ./node_modules/.bin/jasmine sampleSpec.js'
             }
         }
       },
