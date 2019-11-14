@@ -6,7 +6,6 @@ var myReporter = {
     
     specDone: function(result) {
         jasmine.currentTest = result
-        console.log(jasmine.currentTest)
     },
   };
 
