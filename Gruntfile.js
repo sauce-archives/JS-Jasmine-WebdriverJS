@@ -10,23 +10,17 @@ module.exports = function (grunt) {
             }
         }
       },
-
-      parallel: {
-        assets: {
-            options: {
-                grunt: true
-            },
-            tasks: ['run_Windows7_firefox_latest', 'run_Windows10_chrome_latest', 'run_Windows10_edge_latest', 'run_Windows7_ie_11']
-        }
+      concurrent: {
+        runtest: ['run_Windows7_firefox_latest', 'run_Windows10_chrome_latest', 'run_Windows10_edge_latest', 'run_Windows7_ie_11']
       }
     });
 
     // load tasks
-    grunt.loadNpmTasks('grunt-parallel');
     grunt.loadNpmTasks('grunt-shell');
+    grunt.loadNpmTasks('grunt-concurrent');
 
     // register tasks
-    grunt.registerTask('default', ['parallel']);
+    grunt.registerTask('default', ['concurrent:runtest']);
 
     grunt.registerTask('run_Windows7_firefox_latest', ['shell:runTests:"Windows 7":firefox:latest']);
     grunt.registerTask('run_Windows10_chrome_latest', ['shell:runTests:"Windows 10":chrome:latest']);
