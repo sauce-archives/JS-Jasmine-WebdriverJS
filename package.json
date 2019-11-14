@@ -13,7 +13,6 @@
     "grunt-cli": "^1.2.0",
     "grunt-parallel": "^0.4.1",
     "grunt-shell": "^1.1.2",
-    "jasmine-node": "^1.14.5",
     "saucelabs": "^1.0.1",
     "selenium-webdriver": "^4.0.0-alpha.5",
     "jasmine": "^3.5.0"
